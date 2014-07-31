@@ -1,7 +1,7 @@
 ﻿=== HTTPS Redirection ===
 Contributors: Tips and Tricks HQ
 Donate link: http://www.tipsandtricks-hq.com/development-center
-Tags: redirection, https, automatic redirection, htaccess, ssl, https redirection
+Tags: redirection, https, automatic redirection, htaccess, ssl, https redirection, ssl certificate, secure page, secure
 Requires at least: 3.5
 Tested up to: 3.9.1
 Stable tag: 1.1
