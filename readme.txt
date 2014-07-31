@@ -4,7 +4,7 @@ Donate link: http://www.tipsandtricks-hq.com/development-center
 Tags: redirection, https, automatic redirection, htaccess, ssl, https redirection
 Requires at least: 3.5
 Tested up to: 3.9.1
-Stable tag: 1.0
+Stable tag: 1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -20,7 +20,7 @@ Lets say for example, you want to use HTTPS URL for the following page on your s
 
 example.com/checkout
 
-This plugin will enforce that so if anyone uses the URL "http://www.example.com/checkout" in the browser's address bar, It will automatically redirect to "https://www.example.com/checkout"
+This plugin will enforce that so if anyone uses the URL "http://www.tipsandtricks-hq.com/checkout" in the browser's address bar, It will automatically redirect to "https://www.tipsandtricks-hq.com/checkout"
 
 = Features =
 

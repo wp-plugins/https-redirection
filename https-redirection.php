@@ -4,7 +4,7 @@ Plugin Name: HTTPS Redirection
 Plugin URI:  
 Description: The plugin HTTPS Redirection allows an automatic redirection to the "HTTPS" version/URL of the site.
 Author: Tips and Tricks HQ
-Version: 1.0
+Version: 1.1
 Author URI: http://www.tipsandtricks-hq.com/
 License: GPLv2 or later
 */
@@ -76,7 +76,7 @@ if ( ! function_exists( 'register_httpsrdrctn_settings' ) ) {
 
 		$httpsrdrctn_option_defaults = array(
 			'https'					=> 0,
-			'https_domain'	=> 1,
+			'https_domain'	=> 0,
 			'https_pages_array' => array(),
 			'plugin_option_version' => $httpsrdrctn_plugin_info["Version"]
 		);
@@ -221,7 +221,7 @@ if ( ! function_exists ( 'httpsrdrctn_mod_rewrite_rules' ) ) {
 		$home_path = get_home_path();
 		if ( ! file_exists( $home_path . '.htaccess' ) ) {
 			if( $httpsrdrctn_options['https'] == '1' ){
-				$rewrite_https_content = '<IfModule mod_rewrite.c>\n';
+				$rewrite_https_content = '<IfModule mod_rewrite.c>' . "\n";
 				$rewrite_https_content .= 'RewriteEngine On' . "\n";
 				if( '1' == $httpsrdrctn_options['https_domain'] ){
 					$rewrite_https_content .= 'RewriteCond %{HTTPS} !=on' . "\n";
