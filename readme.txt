@@ -20,7 +20,13 @@ Lets say for example, you want to use HTTPS URL for the following page on your s
 
 example.com/checkout
 
-This plugin will enforce that so if anyone uses the URL "http://www.tipsandtricks-hq.com/checkout" in the browser's address bar, It will automatically redirect to "https://www.tipsandtricks-hq.com/checkout"
+This plugin will enforce that so if anyone uses an URL like the following in the browser's address bar:
+http://www.example.com/checkout 
+
+It will automatically redirect to the following HTTPS version of the page:
+https://www.example.com/checkout
+
+So you are always forcing the visitor to view the HTTPS version of the page or site in question.
 
 = Features =
 
