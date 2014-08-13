@@ -1,18 +1,20 @@
 ﻿=== HTTPS Redirection ===
 Contributors: Tips and Tricks HQ
 Donate link: http://www.tipsandtricks-hq.com/development-center
-Tags: redirection, https, automatic redirection, htaccess, ssl, https redirection, ssl certificate, secure page, secure
+Tags: redirection, https, automatic redirection, htaccess, ssl, https redirection, ssl certificate, secure page, secure, force ssl, force https
 Requires at least: 3.5
-Tested up to: 3.9.1
-Stable tag: 1.1
+Tested up to: 3.9.2
+Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-The plugin HTTPS Redirection allows an automatic redirection to the "HTTPS" version/URL of the site.
+The plugin allows an automatic redirection to the "HTTPS" version/URL of the site. Make your site SSL compatible.
 
 == Description ==
 
 After you install SSL certificate on your site you want to use the "HTTPS" URL of your webpages. 
+
+You want to force search engines to index your HTTPS version of the webpage(s).
 
 This plugin will help you automatically setup a redirection to the https version of an URL when anyone tries to access the non-https version.
 
@@ -28,10 +30,21 @@ https://www.example.com/checkout
 
 So you are always forcing the visitor to view the HTTPS version of the page or site in question.
 
+= Force Load Static Files Using HTTPS =
+
+If you started using SSL from day 1 of your site then all your static files are already embedded using HTTPS URL. You have no issue there.
+
+However, if you have an existing website where you have a lot of static files that are embedded in your posts and pages using NON-HTTPS URL then you will need to change those. Otherwise, the browser will show an warning.
+
+This plugin has an option that will allow you to force load those static files using HTTPS URL dynamically. 
+
+This will help you make the webpage fully compatible with SSL.
+
 = Features =
 
 * Actions: Do an auto redirect for the whole domain. So every URL will be redirected to the HTTPS version automatically.
 * Actions: Do an auto redirect for a few pages. The user can enter the URLs that will be auto redirected to the HTTPS version.
+* Force load static files (images, js, css etc) using a HTTPS URL.
 
 == Installation ==
 
@@ -73,6 +86,12 @@ Here is an example for German language files.
 1. Plugin settings page.
 
 == Changelog ==
+
+= v1.2 =
+- Added a new option to automatically force load static files using HTTPS URL.
+
+= v1.1 =
+- Fixed a bug with the settings page.
 
 = v1.0 =
 * First commit to WordPress repository

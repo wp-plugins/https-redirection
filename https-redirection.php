@@ -4,7 +4,7 @@ Plugin Name: HTTPS Redirection
 Plugin URI:  
 Description: The plugin HTTPS Redirection allows an automatic redirection to the "HTTPS" version/URL of the site.
 Author: Tips and Tricks HQ
-Version: 1.1
+Version: 1.2
 Author URI: http://www.tipsandtricks-hq.com/
 License: GPLv2 or later
 */
@@ -34,8 +34,19 @@ if ( ! function_exists( 'add_httpsrdrctn_admin_menu' ) ) {
 
 if ( ! function_exists ( 'httpsrdrctn_plugin_init' ) ) {
 	function httpsrdrctn_plugin_init() {
+		global $httpsrdrctn_options;
 		/* Internationalization, first(!) */
 		load_plugin_textdomain( 'https_redirection', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+		if( empty( $httpsrdrctn_options ) ){
+			$httpsrdrctn_options = get_option( 'httpsrdrctn_options' );
+		}
+		if( isset($httpsrdrctn_options['force_resources']) && $httpsrdrctn_options['force_resources'] == '1' ){
+                        //Handle the appropriate content filters to force the static resources to use HTTPS URL
+			add_filter( 'the_content', 'httpsrdrctn_the_content' );
+			add_filter( 'get_the_content', 'httpsrdrctn_the_content' );
+			add_filter( 'the_excerpt', 'httpsrdrctn_the_content' );
+			add_filter( 'get_the_excerpt', 'httpsrdrctn_the_content' );
+		}
 	}
 }
 
@@ -78,6 +89,7 @@ if ( ! function_exists( 'register_httpsrdrctn_settings' ) ) {
 			'https'					=> 0,
 			'https_domain'	=> 0,
 			'https_pages_array' => array(),
+			'force_resources' => 0,
 			'plugin_option_version' => $httpsrdrctn_plugin_info["Version"]
 		);
 
@@ -141,6 +153,7 @@ if ( ! function_exists( 'httpsrdrctn_settings_page' ) ) {
 		if ( isset( $_REQUEST['httpsrdrctn_form_submit'] ) && check_admin_referer( plugin_basename(__FILE__), 'httpsrdrctn_nonce_name' ) ) {
 			$httpsrdrctn_options['https'] = isset( $_REQUEST['httpsrdrctn_https'] ) ? $_REQUEST['httpsrdrctn_https'] : 0 ;
 			$httpsrdrctn_options['https_domain'] = isset( $_REQUEST['httpsrdrctn_https_domain'] ) ? $_REQUEST['httpsrdrctn_https_domain'] : 0 ;
+			$httpsrdrctn_options['force_resources'] = isset( $_REQUEST['httpsrdrctn_force_resources'] ) ? $_REQUEST['httpsrdrctn_force_resources'] : 0 ;
 			
 			if( isset( $_REQUEST['httpsrdrctn_https_pages_array'] ) ){
 				$httpsrdrctn_options['https_pages_array'] = array();
@@ -186,6 +199,10 @@ if ( ! function_exists( 'httpsrdrctn_settings_page' ) ) {
 						<th scope="row"><?php _e( 'Automatic redirection to the "HTTPS"', 'https_redirection' ); ?></th>
 						<td>
 							<label><input type="checkbox" name="httpsrdrctn_https" value="1" <?php if ( '1' == $httpsrdrctn_options['https'] ) echo "checked=\"checked\" "; ?>/></label><br />
+                                                        <p class="description">Use this option to make your webpage(s) load in HTTPS version only. If someone enters a non-https URL in the browser's address bar then the plugin will automatically redirect to the HTTPS version of that URL.</p>
+                                                        
+                                                        <br />
+                                                        <p>You can apply a force HTTPS redirection on your entire domain or just a few pages.</p>
 							<label <?php if( '0' == $httpsrdrctn_options['https'] ) echo 'class="hidden"'; ?>><input type="radio" name="httpsrdrctn_https_domain" value="1" <?php if ( '1' == $httpsrdrctn_options['https_domain'] ) echo "checked=\"checked\" "; ?>/> The whole domain</label><br />
 							<label <?php if( '0' == $httpsrdrctn_options['https'] ) echo 'class="hidden"'; ?>><input type="radio" name="httpsrdrctn_https_domain" value="0" <?php if ( '0' == $httpsrdrctn_options['https_domain'] ) echo "checked=\"checked\" "; ?>/> A few pages</label><br />
 							<?php foreach( $httpsrdrctn_options['https_pages_array'] as $https_page ){ ?>
@@ -195,7 +212,14 @@ if ( ! function_exists( 'httpsrdrctn_settings_page' ) ) {
 							<?php } ?>
 							<span class="rewrite_new_item <?php if( '1' == $httpsrdrctn_options['https_domain'] || '0' == $httpsrdrctn_options['https'] ) echo 'hidden'; ?>" >
 								<?php echo str_replace( "http://", "https://", home_url() ); ?>/<input type="text" name="httpsrdrctn_https_pages_array[]" value="" /> <span class="rewrite_add_item">&nbsp;</span> <span class="rewrite_item_blank_error"><?php _e( 'Please, fill field', 'list' ); ?></span><br />
-							</span>
+							</span>                                                        
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row"><?php _e( 'Force resources to use HTTPS URL', 'https_redirection' ); ?></th>
+						<td>
+							<label><input type="checkbox" name="httpsrdrctn_force_resources" value="1" <?php if ( isset($httpsrdrctn_options['force_resources']) && $httpsrdrctn_options['force_resources'] == '1' ) echo "checked=\"checked\" "; ?>/></label><br />
+                                                        <p class="description">When checked, the plugin will force load HTTPS URL for any static resources in your content. Example: if you have have an image embedded in a post with a NON-HTTPS URL, this option will change that to a HTTPS URL.</p>
 						</td>
 					</tr>
 				</table>
@@ -348,6 +372,42 @@ if ( ! function_exists ( 'httpsrdrctn_generate_htaccess' ) ) {
 		} else {
 			/**/
 		}
+	}
+}
+
+if ( ! function_exists ( 'httpsrdrctn_the_content' ) ) {
+	function httpsrdrctn_the_content( $content ) {
+		global $httpsrdrctn_options;
+		if( empty( $httpsrdrctn_options ) ){
+			$httpsrdrctn_options = get_option( 'httpsrdrctn_options' );
+		}
+		if( $httpsrdrctn_options['force_resources'] == '1' && $httpsrdrctn_options['https'] == 1 ){
+			if( $httpsrdrctn_options['https_domain'] == 1 ){
+				if( strpos( home_url(), 'https' ) !== false ){
+					$http_domain = str_replace( 'https', 'http', home_url() );
+					$https_domain = home_url();
+				}
+				else{
+					$http_domain = home_url();
+					$https_domain = str_replace( 'http', 'https', home_url() );
+				}
+				$content = str_replace( $http_domain, $https_domain, $content );
+			}
+			else if( ! empty( $httpsrdrctn_options['https_pages_array'] ) ) {
+				foreach( $httpsrdrctn_options['https_pages_array'] as $https_page ) {
+					if( strpos( home_url(), 'https' ) !== false ){
+						$http_domain = str_replace( 'https', 'http', home_url() );
+						$https_domain = home_url();
+					}
+					else{
+						$http_domain = home_url();
+						$https_domain = str_replace( 'http', 'https', home_url() );
+					}
+					$content = str_replace( $http_domain . '/' . $https_page, $https_domain . '/' . $https_page, $content );
+				}
+			}
+		}
+		return $content;
 	}
 }
 
