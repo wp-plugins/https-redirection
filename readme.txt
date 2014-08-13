@@ -12,7 +12,7 @@ The plugin allows an automatic redirection to the "HTTPS" version/URL of the sit
 
 == Description ==
 
-After you install SSL certificate on your site you want to use the "HTTPS" URL of your webpages. 
+After you install SSL certificate on your site, you want to use the "HTTPS" URL of your webpages. 
 
 You want to force search engines to index your HTTPS version of the webpage(s).
 
@@ -30,11 +30,13 @@ https://www.example.com/checkout
 
 So you are always forcing the visitor to view the HTTPS version of the page or site in question.
 
+You can force your entire domain to be auto redirected to the HTTPS URL or selectively choose a few pages to be re-directed.
+
 = Force Load Static Files Using HTTPS =
 
 If you started using SSL from day 1 of your site then all your static files are already embedded using HTTPS URL. You have no issue there.
 
-However, if you have an existing website where you have a lot of static files that are embedded in your posts and pages using NON-HTTPS URL then you will need to change those. Otherwise, the browser will show an warning.
+However, if you have an existing website where you have a lot of static files that are embedded in your posts and pages using NON-HTTPS URL then you will need to change those. Otherwise, the browser will show an SSL warning to your visitors.
 
 This plugin has an option that will allow you to force load those static files using HTTPS URL dynamically. 
 
