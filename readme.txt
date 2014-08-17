@@ -4,7 +4,7 @@ Donate link: http://www.tipsandtricks-hq.com/development-center
 Tags: redirection, https, automatic redirection, htaccess, ssl, https redirection, ssl certificate, secure page, secure, force ssl, force https
 Requires at least: 3.5
 Tested up to: 3.9.2
-Stable tag: 1.2
+Stable tag: 1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -88,6 +88,9 @@ Here is an example for German language files.
 1. Plugin settings page.
 
 == Changelog ==
+
+= v1.3 =
+- Updated the htaccess rules for HTTPS redirection to be more robust to prevent errors on some servers.
 
 = v1.2 =
 - Added a new option to automatically force load static files using HTTPS URL.
