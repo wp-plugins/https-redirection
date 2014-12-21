@@ -3,7 +3,7 @@ Contributors: Tips and Tricks HQ
 Donate link: http://www.tipsandtricks-hq.com/development-center
 Tags: redirection, https, automatic redirection, htaccess, ssl, https redirection, ssl certificate, secure page, secure, force ssl, force https
 Requires at least: 3.5
-Tested up to: 4.0
+Tested up to: 4.1
 Stable tag: 1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -47,6 +47,8 @@ This will help you make the webpage fully compatible with SSL.
 * Actions: Do an auto redirect for the whole domain. So every URL will be redirected to the HTTPS version automatically.
 * Actions: Do an auto redirect for a few pages. The user can enter the URLs that will be auto redirected to the HTTPS version.
 * Force load static files (images, js, css etc) using a HTTPS URL.
+
+= Only use this plugin if you have installed SSL certificate on your site and HTTPS is working correctly =
 
 == Installation ==
 
