@@ -12,6 +12,8 @@ The plugin allows an automatic redirection to the "HTTPS" version/URL of the sit
 
 == Description ==
 
+= Only use this plugin if you have installed SSL certificate on your site and HTTPS is working correctly =
+
 After you install SSL certificate on your site, you want to use the "HTTPS" URL of your webpages. 
 
 You want to force search engines to index your HTTPS version of the webpage(s).
@@ -47,8 +49,6 @@ This will help you make the webpage fully compatible with SSL.
 * Actions: Do an auto redirect for the whole domain. So every URL will be redirected to the HTTPS version automatically.
 * Actions: Do an auto redirect for a few pages. The user can enter the URLs that will be auto redirected to the HTTPS version.
 * Force load static files (images, js, css etc) using a HTTPS URL.
-
-= Only use this plugin if you have installed SSL certificate on your site and HTTPS is working correctly =
 
 == Installation ==
 
