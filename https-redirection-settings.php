@@ -37,8 +37,9 @@ function httpsrdrctn_settings_page() {
         <div class="wrap">
             <div class="icon32 icon32-bws" id="icon-options-general"></div>
             <h2><?php _e('HTTPS Redirection Settings', 'https_redirection'); ?></h2>
+<?php if ( get_option('permalink_structure') ) { ?>
             <div class="error">
-                <p><strong><?php _e("Notice:", 'https_redirection'); ?></strong> <?php _e("It is very important to be extremely attentive when making changes to .htaccess file. This functionality will work if any permalinks except the default ones are set on the Settings -> Permalink page.", 'https_redirection'); ?></p>
+                <p><strong><?php _e("Notice:", 'https_redirection'); ?></strong> <?php _e("It is very important to be extremely attentive when making changes to .htaccess file.", 'https_redirection'); ?></p>
                 <p><?php _e("If after making changes your site stops functioning, please open .htaccess file in the root directory of the WordPress install and delete everything between the following two lines", 'https_redirection'); ?>:</p>
                 <p style="border: 1px solid #ccc; padding: 10px;">
                     # BEGIN HTTPS Redirection Plugin<br />
@@ -87,6 +88,13 @@ function httpsrdrctn_settings_page() {
                 </p>
     <?php wp_nonce_field(plugin_basename(__FILE__), 'httpsrdrctn_nonce_name'); ?>
             </form>
+<?php } else { ?>
+<div class="error">
+<p><?php _e('HTTPS redirection only works if you have pretty permalinks enabled.', 'https_redirection'); ?></p>
+<p><?php _e('To enable pretty permalinks go to <em>Settings > Permalinks</em> and select any option other than "default".', 'https_redirection'); ?></p>
+<p><a href="options-permalink.php">Enable Permalinks</a></p>
+</div>
+<?php } ?>
         </div>
     <?php
 }

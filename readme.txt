@@ -4,7 +4,7 @@ Donate link: http://www.tipsandtricks-hq.com/development-center
 Tags: redirection, https, automatic redirection, htaccess, ssl, https redirection, ssl certificate, secure page, secure, force ssl, force https
 Requires at least: 3.5
 Tested up to: 4.1
-Stable tag: 1.3
+Stable tag: 1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -90,6 +90,9 @@ Here is an example for German language files.
 1. Plugin settings page.
 
 == Changelog ==
+
+= v1.4 =
+- Improved the settings area to only show the options if pretty permalink feature is enabled.
 
 = v1.3 =
 - Updated the htaccess rules for HTTPS redirection to be more robust to prevent errors on some servers.

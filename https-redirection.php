@@ -1,10 +1,10 @@
 <?php
 /*
-  Plugin Name: HTTPS Redirection
+  Plugin Name: Easy HTTPS (SSL) Redirection
   Plugin URI:
   Description: The plugin HTTPS Redirection allows an automatic redirection to the "HTTPS" version/URL of the site.
   Author: Tips and Tricks HQ
-  Version: 1.3
+  Version: 1.4
   Author URI: https://www.tipsandtricks-hq.com/
   License: GPLv2 or later
  */
